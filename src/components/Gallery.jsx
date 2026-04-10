@@ -46,7 +46,7 @@ export default function Gallery({ lang }) {
 
         <div className="gallery-cta">
           <a
-            href="https://www.instagram.com/amsha_rhodes/"
+            href="https://www.instagram.com/amsha__rhodes/"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-instagram"

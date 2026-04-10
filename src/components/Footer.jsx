@@ -13,7 +13,7 @@ export default function Footer({ lang }) {
         <div className="footer-links">
           <a href="https://wa.me/306947889058" target="_blank" rel="noopener noreferrer">WhatsApp</a>
           <span>·</span>
-          <a href="https://www.instagram.com/amsha_rhodes/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://www.instagram.com/amsha__rhodes/" target="_blank" rel="noopener noreferrer">Instagram</a>
         </div>
         <p className="footer-copy">
           © {new Date().getFullYear()} Amsha Nails & Beauty · Rhodes

@@ -91,7 +91,7 @@ export default function Info({ lang }) {
               <div>
                 <span className="info-label">{t[lang].instagram}</span>
                 <a
-                  href="https://www.instagram.com/amsha_rhodes/"
+                  href="https://www.instagram.com/amsha__rhodes/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="info-value link"

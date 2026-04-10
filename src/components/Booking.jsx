@@ -19,7 +19,7 @@ const t = {
     wa: 'WhatsApp',
     waNum: '+30 694 788 9058',
     ig: 'Instagram DM',
-    igHandle: '@amsha_rhodes',
+    igHandle: '@amsha__rhodes',
     call: 'Τηλεφωνήστε',
     callNum: '+30 224 113 2440'
   }
