@@ -5,15 +5,19 @@ const labels = {
   gr: { tag: 'Η Δουλειά μας', title: 'Γκαλερί', sub: 'Κάθε σετ νυχιών λέει μια ιστορία.' }
 }
 
-const placeholders = [
-  { label: 'Cherry nail art', color: '#fef2f2' },
-  { label: 'Burgundy gel', color: '#fdf2f8' },
-  { label: 'Dark navy', color: '#eff6ff' },
-  { label: 'Red classic', color: '#fef2f2' },
-  { label: 'Salon interior', color: '#f0fdf4' },
-  { label: 'Hearts nail art', color: '#fdf2f8' },
-  { label: 'Spa pedicure', color: '#fff7ed' },
-  { label: 'Nail station', color: '#f0fdf4' },
+const images = [
+  { src: '/images/nails-cherry-art.png', tall: true },
+  { src: '/images/nails-burgundy-square.png', tall: false },
+  { src: '/images/nails-dark-silver.png', tall: false },
+  { src: '/images/nails-red-classic.png', tall: false },
+  { src: '/images/salon-interior.png', tall: false },
+  { src: '/images/nails-hearts-nude.png', tall: true },
+  { src: '/images/salon-spa-pedicure.png', tall: false },
+  { src: '/images/nails-burgundy-floral.png', tall: false },
+  { src: '/images/salon-emerald-wall.png', tall: false },
+  { src: '/images/nails-process-blue.png', tall: false },
+  { src: '/images/salon-selfcare.png', tall: false },
+  { src: '/images/salon-nail-station.png', tall: false },
 ]
 
 export default function Gallery({ lang }) {
@@ -27,16 +31,12 @@ export default function Gallery({ lang }) {
         </div>
 
         <div className="gallery-grid">
-          {placeholders.map((item, i) => (
+          {images.map((item, i) => (
             <div
-              className={`gallery-item ${i === 0 || i === 5 ? 'tall' : ''}`}
+              className={`gallery-item ${item.tall ? 'tall' : ''}`}
               key={i}
-              style={{ background: item.color }}
             >
-              <div className="gallery-placeholder">
-                <span className="gallery-ph-icon">📸</span>
-                <span className="gallery-ph-label">{item.label}</span>
-              </div>
+              <img src={item.src} alt={`Amsha Nails work ${i + 1}`} loading="lazy" />
               <div className="gallery-overlay">
                 <span className="gallery-overlay-text">@amsha_rhodes</span>
               </div>
