@@ -1,0 +1,100 @@
+.info {
+  background: white;
+  padding: 100px 0;
+}
+
+.info-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-top: 56px;
+  align-items: start;
+}
+
+.info-map {
+  height: 380px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.info-details {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.info-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.info-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--emerald-pale);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.info-item div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-top: 4px;
+}
+
+.info-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  font-family: var(--font-body);
+}
+
+.info-value {
+  font-size: 15px;
+  color: var(--text-dark);
+  font-family: var(--font-body);
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.info-value.link {
+  color: var(--emerald-dark);
+  transition: color 0.2s;
+}
+
+.info-value.link:hover {
+  color: var(--gold);
+}
+
+.info-link {
+  font-size: 12px;
+  color: var(--gold);
+  text-decoration: none;
+  margin-top: 2px;
+  transition: color 0.2s;
+}
+
+.info-link:hover { color: var(--gold); opacity: 0.8; }
+
+@media (max-width: 768px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .info-map { height: 260px; }
+  .info { padding: 60px 0; }
+}
