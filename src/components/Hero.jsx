@@ -9,8 +9,7 @@ import img6 from '../assets/images/nails-burgundy-square.png'
 import salon1 from '../assets/images/salon-interior.png'
 import salon2 from '../assets/images/salon-emerald-wall.png'
 
-const nailImages = [img1, img2, img3, img4, img5, img6]
-const salonImages = [salon1, salon2]
+const allImages = [img1, img2, img3, img4, img5, img6, salon1, salon2]
 
 const t = {
   en: {
@@ -34,32 +33,23 @@ const t = {
 }
 
 export default function Hero({ lang }) {
-  const [mainIdx, setMainIdx] = useState(0)
-  const [secIdx, setSecIdx] = useState(0)
-  const [mainFading, setMainFading] = useState(false)
-  const [secFading, setSecFading] = useState(false)
+  const [frontIdx, setFrontIdx] = useState(0)
+  const [backIdx, setBackIdx] = useState(1)
+  const [swapped, setSwapped] = useState(false)
 
   useEffect(() => {
-    const mainTimer = setInterval(() => {
-      setMainFading(true)
+    const timer = setInterval(() => {
+      setSwapped(s => !s)
       setTimeout(() => {
-        setMainIdx(i => (i + 1) % nailImages.length)
-        setMainFading(false)
-      }, 500)
-    }, 3500)
-    return () => clearInterval(mainTimer)
-  }, [])
-
-  useEffect(() => {
-    const secTimer = setInterval(() => {
-      setSecFading(true)
-      setTimeout(() => {
-        setSecIdx(i => (i + 1) % salonImages.length)
-        setSecFading(false)
-      }, 500)
-    }, 4500)
-    return () => clearInterval(secTimer)
-  }, [])
+        if (!swapped) {
+          setFrontIdx(i => (i + 2) % allImages.length)
+        } else {
+          setBackIdx(i => (i + 2) % allImages.length)
+        }
+      }, 700)
+    }, 4000)
+    return () => clearInterval(timer)
+  }, [swapped])
 
   return (
     <section className="hero">
@@ -93,22 +83,12 @@ export default function Hero({ lang }) {
         </div>
 
         <div className="hero-visual fade-up fade-up-delay-3">
-          <div className="hero-card hero-card-main floating">
-            <img
-              src={nailImages[mainIdx]}
-              alt="Nail art"
-              className={`hero-card-img ${mainFading ? 'fading' : ''}`}
-            />
-            <div className="hero-card-label">
-              <span>Nail Art · Amsha</span>
-            </div>
+          <div className={`hero-card hero-card-main floating ${swapped ? 'card-back' : 'card-front'}`}>
+            <img src={allImages[frontIdx]} alt="Nail art" className="hero-card-img" />
+            <div className="hero-card-label"><span>Nail Art · Amsha</span></div>
           </div>
-          <div className="hero-card hero-card-secondary floating-slow">
-            <img
-              src={salonImages[secIdx]}
-              alt="Amsha salon"
-              className={`hero-card-img ${secFading ? 'fading' : ''}`}
-            />
+          <div className={`hero-card hero-card-secondary floating-slow ${swapped ? 'card-front-sm' : 'card-back-sm'}`}>
+            <img src={allImages[backIdx]} alt="Amsha salon" className="hero-card-img" />
           </div>
           <div className="hero-badge">
             <div className="badge-inner">
