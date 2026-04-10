@@ -4,34 +4,101 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Amsha Nails & Beauty — Quiet Luxury nail salon in Rhodes, Greece. Professional manicure, pedicure, nail art and beauty treatments. Book via WhatsApp or Instagram." />
-    <meta name="keywords" content="nail salon Rhodes, nails Rhodes Greece, manicure Rhodes, pedicure Rhodes, nail art Rhodes, beauty salon Rhodes, νύχια Ρόδος" />
-    <meta property="og:title" content="Amsha Nails & Beauty · Rhodes" />
-    <meta property="og:description" content="Quiet Luxury nail salon in the heart of Rhodes. Book your appointment today." />
+
+    <!-- Primary SEO -->
+    <title>Amsha Nails & Beauty · Nail Salon Rhodes Greece</title>
+    <meta name="description" content="Amsha Nails & Beauty — Quiet Luxury nail salon in Rhodes, Greece. Manicure from €25, Pedicure from €30, Nail Art from €2. Book via WhatsApp. Open Tue–Sat 10:00–18:00." />
+    <meta name="keywords" content="nail salon Rhodes, nails Rhodes Greece, manicure Rhodes, pedicure Rhodes, nail art Rhodes, beauty salon Rhodes, νύχια Ρόδος, μανικιούρ Ρόδος, πεντικιούρ Ρόδος, amsha nails" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://amshanails.gr" />
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://amshanails.gr" />
+    <meta property="og:title" content="Amsha Nails & Beauty · Rhodes, Greece" />
+    <meta property="og:description" content="Quiet Luxury nail salon in the heart of Rhodes. Manicure, Pedicure, Nail Art & Beauty treatments. Book your appointment today." />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:locale:alternate" content="el_GR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Amsha Nails & Beauty · Rhodes" />
+    <meta name="twitter:description" content="Quiet Luxury nail salon in Rhodes, Greece. Book via WhatsApp." />
+
+    <!-- Geo tags for local SEO -->
+    <meta name="geo.region" content="GR" />
+    <meta name="geo.placename" content="Rhodes" />
+    <meta name="geo.position" content="36.4341;28.2232" />
+    <meta name="ICBM" content="36.4341, 28.2232" />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-    <title>Amsha Nails & Beauty · Rhodes</title>
 
+    <!-- Structured Data (Google Rich Results) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "NailSalon",
       "name": "Amsha Nails & Beauty",
-      "image": "https://amshanails.gr/og-image.jpg",
+      "description": "Quiet Luxury nail salon in Rhodes, Greece. Professional manicure, pedicure, nail art and beauty treatments.",
       "url": "https://amshanails.gr",
       "telephone": ["+306947889058", "+302241132440"],
+      "email": "",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Ιερού Λόχου 11",
         "addressLocality": "Rhodes",
+        "addressRegion": "South Aegean",
+        "postalCode": "85100",
         "addressCountry": "GR"
       },
-      "sameAs": ["https://www.instagram.com/amsha_rhodes/"],
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 36.4341,
+        "longitude": 28.2232
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "10:00",
+          "closes": "18:00"
+        }
+      ],
       "priceRange": "€€",
-      "openingHours": "Mo-Sa 09:00-20:00"
+      "currenciesAccepted": "EUR",
+      "paymentAccepted": "Cash, Credit Card",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Beauty Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": { "@type": "Service", "name": "Manicure" },
+            "priceSpecification": { "@type": "PriceSpecification", "minPrice": "25", "priceCurrency": "EUR" }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": { "@type": "Service", "name": "Pedicure" },
+            "priceSpecification": { "@type": "PriceSpecification", "minPrice": "30", "priceCurrency": "EUR" }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": { "@type": "Service", "name": "Nail Art" },
+            "priceSpecification": { "@type": "PriceSpecification", "minPrice": "2", "priceCurrency": "EUR" }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": { "@type": "Service", "name": "Beauty Care" },
+            "priceSpecification": { "@type": "PriceSpecification", "minPrice": "35", "priceCurrency": "EUR" }
+          }
+        ]
+      },
+      "sameAs": [
+        "https://www.instagram.com/amsha__rhodes/"
+      ]
     }
     </script>
   </head>
