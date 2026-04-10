@@ -55,11 +55,20 @@
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--text-mid);
-  transition: color 0.2s;
+  transition: color 0.3s;
   padding: 0;
 }
 
 .nav-links button:hover { color: var(--emerald); }
+
+.navbar:not(.scrolled) .nav-links button { color: rgba(255,255,255,0.85); }
+.navbar:not(.scrolled) .nav-links button:hover { color: white; }
+.navbar:not(.scrolled) .nav-logo { color: var(--text-dark); }
+.navbar:not(.scrolled) .lang-toggle button { color: rgba(255,255,255,0.7); }
+.navbar:not(.scrolled) .lang-toggle button.active { color: white; }
+.navbar:not(.scrolled) .lang-toggle span { color: rgba(255,255,255,0.4); }
+.navbar:not(.scrolled) .btn-book { background: white; color: var(--emerald-dark); }
+.navbar:not(.scrolled) .btn-book:hover { background: var(--gold-pale); }
 
 .nav-right {
   display: flex;
