@@ -8,7 +8,7 @@ const t = {
     wa: 'WhatsApp',
     waNum: '+30 694 788 9058',
     ig: 'Instagram DM',
-    igHandle: '@amsha_rhodes',
+    igHandle: '@amsha__rhodes',
     call: 'Call Us',
     callNum: '+30 224 113 2440'
   },
@@ -54,7 +54,7 @@ export default function Booking({ lang }) {
           </a>
 
           <a
-            href="https://www.instagram.com/amsha_rhodes/"
+            href="https://www.instagram.com/amsha__rhodes/"
             target="_blank"
             rel="noopener noreferrer"
             className="booking-card"

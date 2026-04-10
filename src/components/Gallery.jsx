@@ -5,19 +5,32 @@ const labels = {
   gr: { tag: 'Η Δουλειά μας', title: 'Γκαλερί', sub: 'Κάθε σετ νυχιών λέει μια ιστορία.' }
 }
 
+import img1 from '../assets/images/nails-cherry-art.png'
+import img2 from '../assets/images/nails-burgundy-square.png'
+import img3 from '../assets/images/nails-dark-silver.png'
+import img4 from '../assets/images/nails-red-classic.png'
+import img5 from '../assets/images/salon-interior.png'
+import img6 from '../assets/images/nails-hearts-nude.png'
+import img7 from '../assets/images/salon-spa-pedicure.png'
+import img8 from '../assets/images/nails-burgundy-floral.png'
+import img9 from '../assets/images/salon-emerald-wall.png'
+import img10 from '../assets/images/nails-process-blue.png'
+import img11 from '../assets/images/salon-selfcare.png'
+import img12 from '../assets/images/salon-nail-station.png'
+
 const images = [
-  { src: '/images/nails-cherry-art.png', tall: true },
-  { src: '/images/nails-burgundy-square.png', tall: false },
-  { src: '/images/nails-dark-silver.png', tall: false },
-  { src: '/images/nails-red-classic.png', tall: false },
-  { src: '/images/salon-interior.png', tall: false },
-  { src: '/images/nails-hearts-nude.png', tall: true },
-  { src: '/images/salon-spa-pedicure.png', tall: false },
-  { src: '/images/nails-burgundy-floral.png', tall: false },
-  { src: '/images/salon-emerald-wall.png', tall: false },
-  { src: '/images/nails-process-blue.png', tall: false },
-  { src: '/images/salon-selfcare.png', tall: false },
-  { src: '/images/salon-nail-station.png', tall: false },
+  { src: img1, tall: true },
+  { src: img2, tall: false },
+  { src: img3, tall: false },
+  { src: img4, tall: false },
+  { src: img5, tall: false },
+  { src: img6, tall: true },
+  { src: img7, tall: false },
+  { src: img8, tall: false },
+  { src: img9, tall: false },
+  { src: img10, tall: false },
+  { src: img11, tall: false },
+  { src: img12, tall: false },
 ]
 
 export default function Gallery({ lang }) {
@@ -38,7 +51,7 @@ export default function Gallery({ lang }) {
             >
               <img src={item.src} alt={`Amsha Nails work ${i + 1}`} loading="lazy" />
               <div className="gallery-overlay">
-                <span className="gallery-overlay-text">@amsha_rhodes</span>
+                <span className="gallery-overlay-text">@amsha__rhodes</span>
               </div>
             </div>
           ))}

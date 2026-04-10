@@ -96,7 +96,7 @@ export default function Info({ lang }) {
                   rel="noopener noreferrer"
                   className="info-value link"
                 >
-                  @amsha_rhodes
+                  @amsha__rhodes
                 </a>
               </div>
             </div>
