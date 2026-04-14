@@ -182,15 +182,17 @@
   transform: translate(-50%, -50%) rotate(-2deg) scale(1);
   z-index: 2;
   opacity: 1;
+  left: 50%;
+  top: 50%;
 }
 
 .card-back {
-  transform: translate(-50%, -50%) rotate(4deg) scale(0.65);
-  top: 10%;
+  transform: translateX(60%) rotate(3deg) scale(0.75);
+  top: 15%;
   left: auto;
-  right: 5%;
+  right: -5%;
   z-index: 1;
-  opacity: 0.9;
+  opacity: 0.85;
 }
 
 .card-front-sm {
@@ -205,9 +207,12 @@
 }
 
 .card-back-sm {
-  transform: rotate(4deg) scale(1);
+  transform: translateX(60%) rotate(3deg) scale(0.75);
+  top: 15%;
+  right: -5%;
+  left: auto;
   z-index: 1;
-  opacity: 0.9;
+  opacity: 0.85;
 }
 
 .floating {
@@ -361,33 +366,39 @@
   .hero-btns { justify-content: center; }
 
   .hero-visual {
-    height: 300px;
+    height: 280px;
     overflow: hidden;
     width: 100%;
     position: relative;
   }
 
   .hero-card-main {
-    width: 180px;
-    height: 240px;
+    width: 170px;
+    height: 220px;
   }
 
   .hero-card-secondary {
-    width: 110px;
-    height: 140px;
+    width: 100px;
+    height: 130px;
     right: 8%;
     top: 8%;
   }
 
   .card-back {
-    transform: translate(-50%, -50%) rotate(4deg) scale(0.62);
-    top: 8%;
-    right: 8%;
+    transform: translateX(55%) rotate(3deg) scale(0.75);
+    top: 10%;
+    right: 0;
   }
 
   .card-front-sm {
-    width: 180px;
-    height: 240px;
+    width: 170px;
+    height: 220px;
+  }
+
+  .card-back-sm {
+    transform: translateX(55%) rotate(3deg) scale(0.75);
+    top: 10%;
+    right: 0;
   }
 
   .hero-badge {
