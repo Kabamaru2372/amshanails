@@ -86,6 +86,7 @@ function Carousel() {
     { offset: -1, idx: getIdx(-1), role: 'prev' },
     { offset: 0,  idx: getIdx(0),  role: 'cur' },
     { offset: 1,  idx: getIdx(1),  role: 'next' },
+    { offset: 2,  idx: getIdx(2),  role: 'entry' },
   ]
 
   return (

@@ -213,8 +213,20 @@
   box-shadow: 0 16px 48px rgba(0,137,123,0.18);
 }
 
-.c-card-prev { opacity: 0.7; }
+.c-card-next {
+  animation: cardFadeIn 0.45s ease forwards;
+}
+
+.c-card-prev {
+  opacity: 0.7;
+}
+
 .c-card-peek { opacity: 0.5; }
+
+.c-card-entry {
+  opacity: 0;
+  pointer-events: none;
+}
 
 .c-card-img {
   width: 100%;
