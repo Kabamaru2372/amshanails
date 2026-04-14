@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import './Hero.css'
 import img1 from '../assets/images/nails-cherry-art.png'
 import img2 from '../assets/images/nails-burgundy-floral.png'
@@ -14,51 +14,105 @@ const allImages = [img1, img2, img3, img4, img5, img6, salon1, salon2, salon3]
 
 const t = {
   en: {
-    tag: 'Rhodes, Greece',
-    h1a: 'Quiet',
-    h1b: 'Luxury',
+    tag: 'Rhodes, Greece', h1a: 'Quiet', h1b: 'Luxury',
     sub: 'Professional nail art & beauty treatments in the heart of Rhodes. Where self-care becomes a ritual.',
-    wa: 'Book via WhatsApp',
-    ig: 'Instagram',
-    scroll: 'Scroll to discover'
+    wa: 'Book via WhatsApp', ig: 'Instagram', scroll: 'Scroll to discover'
   },
   gr: {
-    tag: 'Ρόδος, Ελλάδα',
-    h1a: 'Quiet',
-    h1b: 'Luxury',
+    tag: 'Ρόδος, Ελλάδα', h1a: 'Quiet', h1b: 'Luxury',
     sub: 'Επαγγελματική τέχνη νυχιών & περιποίηση ομορφιάς στην καρδιά της Ρόδου. Εκεί που η αυτοφροντίδα γίνεται τελετουργία.',
-    wa: 'Κράτηση WhatsApp',
-    ig: 'Instagram',
-    scroll: 'Ανακαλύψτε'
+    wa: 'Κράτηση WhatsApp', ig: 'Instagram', scroll: 'Ανακαλύψτε'
   }
 }
 
-// 3 θέσεις στο carousel: 0=front, 1=right, 2=back
-// Κάθε tick: front→exit, right→front, back→right, new→back
-const POSITIONS = ['front', 'right', 'back']
+function Carousel() {
+  const [current, setCurrent] = useState(0)
+  const [sliding, setSliding] = useState(false)
+  const [direction, setDirection] = useState('left')
+  const hovered = useRef(false)
+  const dragStart = useRef(null)
+  const timerRef = useRef(null)
 
-export default function Hero({ lang }) {
-  const [slots, setSlots] = useState([0, 1, 2]) // index στο allImages για κάθε slot
-  const [animating, setAnimating] = useState(false)
-  const [exitIdx, setExitIdx] = useState(null)
-  const [nextImg, setNextImg] = useState(3)
+  const total = allImages.length
+
+  const goTo = useCallback((dir) => {
+    if (sliding) return
+    setDirection(dir)
+    setSliding(true)
+    setTimeout(() => {
+      setCurrent(c => dir === 'left'
+        ? (c + 1) % total
+        : (c - 1 + total) % total
+      )
+      setSliding(false)
+    }, 450)
+  }, [sliding, total])
+
+  const startTimer = useCallback(() => {
+    clearInterval(timerRef.current)
+    timerRef.current = setInterval(() => {
+      if (!hovered.current) goTo('left')
+    }, 3500)
+  }, [goTo])
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      if (animating) return
-      setAnimating(true)
-      setExitIdx(slots[0]) // front φεύγει
+    startTimer()
+    return () => clearInterval(timerRef.current)
+  }, [startTimer])
 
-      setTimeout(() => {
-        setSlots(prev => [prev[1], prev[2], nextImg % allImages.length])
-        setNextImg(n => (n + 1) % allImages.length)
-        setExitIdx(null)
-        setAnimating(false)
-      }, 700)
-    }, 3500)
-    return () => clearInterval(timer)
-  }, [slots, animating, nextImg])
+  const onMouseEnter = () => { hovered.current = true }
+  const onMouseLeave = () => { hovered.current = false }
 
+  const onMouseDown = (e) => { dragStart.current = e.clientX }
+  const onMouseUp = (e) => {
+    if (dragStart.current === null) return
+    const diff = dragStart.current - e.clientX
+    if (Math.abs(diff) > 40) goTo(diff > 0 ? 'left' : 'right')
+    dragStart.current = null
+  }
+
+  const onTouchStart = (e) => { dragStart.current = e.touches[0].clientX }
+  const onTouchEnd = (e) => {
+    if (dragStart.current === null) return
+    const diff = dragStart.current - e.changedTouches[0].clientX
+    if (Math.abs(diff) > 40) goTo(diff > 0 ? 'left' : 'right')
+    dragStart.current = null
+  }
+
+  const getIdx = (offset) => (current + offset + total) % total
+
+  // Visibile: prev, current, next (+ one extra each side for smooth slide)
+  const cards = [
+    { offset: -1, idx: getIdx(-1), role: 'prev' },
+    { offset: 0,  idx: getIdx(0),  role: 'cur' },
+    { offset: 1,  idx: getIdx(1),  role: 'next' },
+    { offset: 2,  idx: getIdx(2),  role: 'peek' },
+  ]
+
+  return (
+    <div
+      className="carousel-track-wrapper"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onMouseDown={onMouseDown}
+      onMouseUp={onMouseUp}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
+      <div className={`carousel-track ${sliding ? `sliding-${direction}` : ''}`}>
+        {cards.map(({ idx, role }) => (
+          <div className={`c-card c-card-${role}`} key={`${role}-${idx}`}>
+            <img src={allImages[idx]} alt="Amsha Nails" className="c-card-img" draggable={false} />
+          </div>
+        ))}
+      </div>
+      <button className="c-btn c-btn-left" onClick={() => goTo('right')}>‹</button>
+      <button className="c-btn c-btn-right" onClick={() => goTo('left')}>›</button>
+    </div>
+  )
+}
+
+export default function Hero({ lang }) {
   return (
     <section className="hero">
       <div className="hero-bg">
@@ -69,12 +123,10 @@ export default function Hero({ lang }) {
       <div className="hero-inner">
         <div className="hero-text fade-up fade-up-delay-1">
           <div className="hero-tag">
-            <span className="tag-dot" />
-            {t[lang].tag}
+            <span className="tag-dot" />{t[lang].tag}
           </div>
           <h1 className="hero-h1">
-            <span className="h1-quiet">{t[lang].h1a}</span>
-            <br />
+            <span className="h1-quiet">{t[lang].h1a}</span><br />
             <span className="h1-luxury">{t[lang].h1b}</span>
           </h1>
           <p className="hero-sub">{t[lang].sub}</p>
@@ -91,36 +143,8 @@ export default function Hero({ lang }) {
         </div>
 
         <div className="hero-visual fade-up fade-up-delay-3">
-          <div className="carousel-container">
-            {/* Exit card - front που φεύγει */}
-            {exitIdx !== null && (
-              <div className="carousel-card c-exiting">
-                <img src={allImages[exitIdx]} alt="Nail art" className="hero-card-img" />
-              </div>
-            )}
-            {/* Back card - μικρή πίσω */}
-            <div className={`carousel-card ${animating ? 'c-back-to-right' : 'c-back'}`}>
-              <img src={allImages[slots[2]]} alt="Nail art" className="hero-card-img" />
-            </div>
-            {/* Right card - μεσαία */}
-            <div className={`carousel-card ${animating ? 'c-right-to-front' : 'c-right'}`}>
-              <img src={allImages[slots[1]]} alt="Nail art" className="hero-card-img" />
-            </div>
-            {/* Front card - μεγάλη μπροστά */}
-            {exitIdx === null && (
-              <div className={`carousel-card ${animating ? 'c-front-to-right' : 'c-front'}`}>
-                <img src={allImages[slots[0]]} alt="Nail art" className="hero-card-img" />
-                <div className="hero-card-label"><span>Nail Art · Amsha</span></div>
-              </div>
-            )}
-          </div>
-
-          <a
-            href="https://g.page/r/CaVowfI7r4snEAE/review"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hero-badge"
-          >
+          <Carousel />
+          <a href="https://g.page/r/CaVowfI7r4snEAE/review" target="_blank" rel="noopener noreferrer" className="hero-badge">
             <div className="badge-inner">
               <span className="badge-num">5★</span>
               <span className="badge-text">Rhodes</span>

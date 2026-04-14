@@ -156,124 +156,110 @@
   box-shadow: 0 20px 60px rgba(0,0,0,0.12);
 }
 
-.carousel-container {
+/* ── Carousel ── */
+.carousel-track-wrapper {
   position: relative;
   width: 100%;
   height: 100%;
-}
-
-.carousel-card {
-  position: absolute;
-  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.14);
-  transition: all 0.75s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform, opacity, width, height, top, left, right;
+  border-radius: 20px;
+  cursor: grab;
+  user-select: none;
 }
 
-/* Θέσεις ηρεμίας */
-.c-front {
-  width: 220px;
-  height: 290px;
+.carousel-track-wrapper:active { cursor: grabbing; }
+
+.carousel-track {
+  display: flex;
+  gap: 12px;
+  height: 100%;
+  will-change: transform;
+}
+
+/* Slide left animation */
+.carousel-track.sliding-left {
+  animation: slideLeft 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Slide right animation */
+.carousel-track.sliding-right {
+  animation: slideRight 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(-172px - 12px)); }
+}
+
+@keyframes slideRight {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(172px + 12px)); }
+}
+
+.c-card {
+  flex-shrink: 0;
+  width: 160px;
+  height: 210px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  align-self: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.c-card-cur {
+  width: 172px;
+  height: 228px;
+  box-shadow: 0 16px 48px rgba(0,137,123,0.18);
+}
+
+.c-card-prev { opacity: 0.7; }
+.c-card-peek { opacity: 0.5; }
+
+.c-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+/* Nav buttons */
+.c-btn {
+  position: absolute;
   top: 50%;
-  left: 10%;
-  transform: translateY(-50%) rotate(-2deg);
-  z-index: 3;
-  opacity: 1;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.85);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 20px;
+  color: var(--emerald-dark);
+  cursor: pointer;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  transition: background 0.2s, transform 0.2s;
+  padding-bottom: 2px;
 }
 
-.c-right {
-  width: 155px;
-  height: 205px;
-  top: 12%;
-  right: 8%;
-  transform: rotate(4deg);
-  z-index: 2;
-  opacity: 0.92;
+.c-btn:hover {
+  background: white;
+  transform: translateY(-50%) scale(1.08);
 }
 
-.c-back {
-  width: 105px;
-  height: 138px;
-  bottom: 10%;
-  right: 14%;
-  transform: rotate(-3deg);
-  z-index: 1;
-  opacity: 0.75;
-}
-
-/* Animations: δεξιόστροφη περιστροφή */
-.c-front-to-right {
-  width: 155px;
-  height: 205px;
-  top: 12%;
-  right: 8%;
-  left: auto;
-  transform: rotate(4deg);
-  z-index: 2;
-  opacity: 0.92;
-  transition: all 0.75s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.c-right-to-front {
-  width: 220px;
-  height: 290px;
-  top: 50%;
-  left: 10%;
-  right: auto;
-  transform: translateY(-50%) rotate(-2deg);
-  z-index: 3;
-  opacity: 1;
-  transition: all 0.75s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.c-back-to-right {
-  width: 155px;
-  height: 205px;
-  top: 12%;
-  right: 8%;
-  bottom: auto;
-  transform: rotate(4deg);
-  z-index: 2;
-  opacity: 0.92;
-  transition: all 0.75s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.c-exiting {
-  width: 105px;
-  height: 138px;
-  bottom: 10%;
-  right: 14%;
-  left: auto;
-  top: auto;
-  transform: rotate(-3deg) scale(0.8);
-  z-index: 0;
-  opacity: 0;
-  transition: all 0.75s cubic-bezier(0.4, 0, 0.2, 1);
-}
+.c-btn-left  { left: 6px; }
+.c-btn-right { right: 6px; }
 
 .hero-card-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-}
-
-.hero-card-label {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: var(--emerald);
-  padding: 10px 16px;
-}
-
-.hero-card-label span {
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.9);
-  font-family: var(--font-body);
 }
 
 .hero-badge {
@@ -349,7 +335,7 @@
   .hero-inner {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: 40px;
+    gap: 32px;
     padding: 40px 24px;
   }
 
@@ -365,35 +351,29 @@
   .hero-btns { justify-content: center; }
 
   .hero-visual {
-    height: 270px;
-    overflow: hidden;
+    height: 260px;
     width: 100%;
     position: relative;
   }
 
-  .c-front, .c-right-to-front {
-    width: 155px;
-    height: 205px;
-    left: 8%;
+  .c-card {
+    width: 120px;
+    height: 160px;
   }
 
-  .c-right, .c-front-to-right, .c-back-to-right {
-    width: 115px;
-    height: 152px;
-    right: 6%;
-    top: 10%;
+  .c-card-cur {
+    width: 130px;
+    height: 172px;
   }
 
-  .c-back {
-    width: 80px;
-    height: 105px;
-    right: 12%;
-    bottom: 6%;
+  @keyframes slideLeft {
+    from { transform: translateX(0); }
+    to   { transform: translateX(calc(-120px - 12px)); }
   }
 
-  .c-exiting {
-    right: 12%;
-    bottom: 6%;
+  @keyframes slideRight {
+    from { transform: translateX(0); }
+    to   { transform: translateX(calc(120px + 12px)); }
   }
 
   .hero-badge {
