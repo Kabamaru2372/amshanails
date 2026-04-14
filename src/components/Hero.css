@@ -149,20 +149,20 @@
   height: 480px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+  padding-right: 16px;
 }
 
 /* ── Carousel ── */
 .carousel-track-wrapper {
   position: relative;
-  width: 100%;
+  width: 520px;
   height: 100%;
   overflow: hidden;
   cursor: grab;
   user-select: none;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
 }
 
 .carousel-track-wrapper:active { cursor: grabbing; }
