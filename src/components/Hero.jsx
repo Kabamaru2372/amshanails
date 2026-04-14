@@ -8,8 +8,9 @@ import img5 from '../assets/images/nails-red-classic.png'
 import img6 from '../assets/images/nails-burgundy-square.png'
 import salon1 from '../assets/images/salon-interior.png'
 import salon2 from '../assets/images/salon-emerald-wall.png'
+import salon3 from '../assets/images/salon-spa-pedicure.png'
 
-const allImages = [img1, img2, img3, img4, img5, img6, salon1, salon2]
+const allImages = [img1, img2, img3, img4, img5, img6, salon1, salon2, salon3]
 
 const t = {
   en: {
@@ -33,23 +34,16 @@ const t = {
 }
 
 export default function Hero({ lang }) {
-  const [frontIdx, setFrontIdx] = useState(0)
-  const [backIdx, setBackIdx] = useState(1)
-  const [swapped, setSwapped] = useState(false)
+  const [offset, setOffset] = useState(0)
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setSwapped(s => !s)
-      setTimeout(() => {
-        if (!swapped) {
-          setFrontIdx(i => (i + 2) % allImages.length)
-        } else {
-          setBackIdx(i => (i + 2) % allImages.length)
-        }
-      }, 700)
-    }, 4000)
+      setOffset(o => (o + 1) % allImages.length)
+    }, 3000)
     return () => clearInterval(timer)
-  }, [swapped])
+  }, [])
+
+  const getImg = (delta) => allImages[(offset + delta) % allImages.length]
 
   return (
     <section className="hero">
@@ -83,13 +77,19 @@ export default function Hero({ lang }) {
         </div>
 
         <div className="hero-visual fade-up fade-up-delay-3">
-          <div className={`hero-card hero-card-main floating ${swapped ? 'card-back' : 'card-front'}`}>
-            <img src={allImages[frontIdx]} alt="Nail art" className="hero-card-img" />
-            <div className="hero-card-label"><span>Nail Art · Amsha</span></div>
+          <div className="carousel-container">
+            <div className="carousel-card carousel-front">
+              <img src={getImg(0)} alt="Nail art" className="hero-card-img" key={offset} />
+              <div className="hero-card-label"><span>Nail Art · Amsha</span></div>
+            </div>
+            <div className="carousel-card carousel-right">
+              <img src={getImg(1)} alt="Nail art" className="hero-card-img" key={offset + 1} />
+            </div>
+            <div className="carousel-card carousel-back">
+              <img src={getImg(2)} alt="Nail art" className="hero-card-img" key={offset + 2} />
+            </div>
           </div>
-          <div className={`hero-card hero-card-secondary floating-slow ${swapped ? 'card-front-sm' : 'card-back-sm'}`}>
-            <img src={allImages[backIdx]} alt="Amsha salon" className="hero-card-img" />
-          </div>
+
           <a
             href="https://g.page/r/CaVowfI7r4snEAE/review"
             target="_blank"

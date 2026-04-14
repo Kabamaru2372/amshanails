@@ -156,71 +156,51 @@
   box-shadow: 0 20px 60px rgba(0,0,0,0.12);
 }
 
-.hero-card-main {
-  width: 260px;
-  height: 340px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-2deg);
-  background: white;
-  z-index: 2;
-  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
-.hero-card-secondary {
+.carousel-card {
+  position: absolute;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Front: μεγάλη κάρτα κεντρικά */
+.carousel-front {
+  width: 220px;
+  height: 290px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-60%, -50%) rotate(-2deg);
+  z-index: 3;
+  opacity: 1;
+}
+
+/* Right: μεσαία κάρτα δεξιά */
+.carousel-right {
   width: 160px;
-  height: 200px;
-  top: 10%;
-  right: 5%;
+  height: 210px;
+  top: 20%;
+  right: 4%;
   transform: rotate(4deg);
-  background: var(--emerald-pale);
-  z-index: 1;
-  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.card-front {
-  transform: translate(-50%, -50%) rotate(-2deg) scale(1);
   z-index: 2;
-  opacity: 1;
-  left: 50%;
-  top: 50%;
+  opacity: 0.9;
 }
 
-.card-back {
-  transform: translateX(60%) rotate(3deg) scale(0.75);
-  top: 15%;
-  left: auto;
-  right: -5%;
+/* Back: μικρή κάρτα πίσω δεξιά */
+.carousel-back {
+  width: 110px;
+  height: 145px;
+  bottom: 10%;
+  right: 10%;
+  transform: rotate(-3deg);
   z-index: 1;
-  opacity: 0.85;
-}
-
-.card-front-sm {
-  transform: translate(-50%, -50%) rotate(-2deg) scale(1);
-  top: 50%;
-  left: 50%;
-  right: auto;
-  width: 260px;
-  height: 340px;
-  z-index: 2;
-  opacity: 1;
-}
-
-.card-back-sm {
-  transform: translateX(60%) rotate(3deg) scale(0.75);
-  top: 15%;
-  right: -5%;
-  left: auto;
-  z-index: 1;
-  opacity: 0.85;
-}
-
-.floating {
-  animation: float 4s ease-in-out infinite;
-}
-
-.floating-slow {
-  animation: floatSlow 5.5s ease-in-out infinite;
+  opacity: 0.7;
 }
 
 .hero-card-img {
@@ -228,36 +208,7 @@
   height: 100%;
   object-fit: cover;
   display: block;
-}
-
-.hero-card-img.fading {
-  opacity: 0;
-}
-
-.hero-img-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: var(--warm-white);
-  gap: 8px;
-}
-
-.hero-img-placeholder.small { gap: 4px; }
-
-.placeholder-icon {
-  font-size: 32px;
-}
-
-.placeholder-icon.small { font-size: 20px; }
-
-.placeholder-text {
-  font-size: 11px;
-  color: var(--text-light);
-  letter-spacing: 1px;
-  font-family: var(--font-body);
+  animation: fadeIn 0.5s ease;
 }
 
 .hero-card-label {
@@ -372,33 +323,24 @@
     position: relative;
   }
 
-  .hero-card-main {
-    width: 170px;
-    height: 220px;
+  .carousel-front {
+    width: 160px;
+    height: 210px;
+    transform: translate(-65%, -50%) rotate(-2deg);
   }
 
-  .hero-card-secondary {
-    width: 100px;
-    height: 130px;
-    right: 8%;
-    top: 8%;
+  .carousel-right {
+    width: 120px;
+    height: 158px;
+    top: 15%;
+    right: 6%;
   }
 
-  .card-back {
-    transform: translateX(55%) rotate(3deg) scale(0.75);
-    top: 10%;
-    right: 0;
-  }
-
-  .card-front-sm {
-    width: 170px;
-    height: 220px;
-  }
-
-  .card-back-sm {
-    transform: translateX(55%) rotate(3deg) scale(0.75);
-    top: 10%;
-    right: 0;
+  .carousel-back {
+    width: 85px;
+    height: 112px;
+    bottom: 8%;
+    right: 12%;
   }
 
   .hero-badge {
