@@ -33,17 +33,31 @@ const t = {
   }
 }
 
+// 3 θέσεις στο carousel: 0=front, 1=right, 2=back
+// Κάθε tick: front→exit, right→front, back→right, new→back
+const POSITIONS = ['front', 'right', 'back']
+
 export default function Hero({ lang }) {
-  const [offset, setOffset] = useState(0)
+  const [slots, setSlots] = useState([0, 1, 2]) // index στο allImages για κάθε slot
+  const [animating, setAnimating] = useState(false)
+  const [exitIdx, setExitIdx] = useState(null)
+  const [nextImg, setNextImg] = useState(3)
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setOffset(o => (o + 1) % allImages.length)
-    }, 3000)
-    return () => clearInterval(timer)
-  }, [])
+      if (animating) return
+      setAnimating(true)
+      setExitIdx(slots[0]) // front φεύγει
 
-  const getImg = (delta) => allImages[(offset + delta) % allImages.length]
+      setTimeout(() => {
+        setSlots(prev => [prev[1], prev[2], nextImg % allImages.length])
+        setNextImg(n => (n + 1) % allImages.length)
+        setExitIdx(null)
+        setAnimating(false)
+      }, 700)
+    }, 3500)
+    return () => clearInterval(timer)
+  }, [slots, animating, nextImg])
 
   return (
     <section className="hero">
@@ -78,16 +92,27 @@ export default function Hero({ lang }) {
 
         <div className="hero-visual fade-up fade-up-delay-3">
           <div className="carousel-container">
-            <div className="carousel-card carousel-front">
-              <img src={getImg(0)} alt="Nail art" className="hero-card-img" key={offset} />
-              <div className="hero-card-label"><span>Nail Art · Amsha</span></div>
+            {/* Exit card - front που φεύγει */}
+            {exitIdx !== null && (
+              <div className="carousel-card c-exiting">
+                <img src={allImages[exitIdx]} alt="Nail art" className="hero-card-img" />
+              </div>
+            )}
+            {/* Back card - μικρή πίσω */}
+            <div className={`carousel-card ${animating ? 'c-back-to-right' : 'c-back'}`}>
+              <img src={allImages[slots[2]]} alt="Nail art" className="hero-card-img" />
             </div>
-            <div className="carousel-card carousel-right">
-              <img src={getImg(1)} alt="Nail art" className="hero-card-img" key={offset + 1} />
+            {/* Right card - μεσαία */}
+            <div className={`carousel-card ${animating ? 'c-right-to-front' : 'c-right'}`}>
+              <img src={allImages[slots[1]]} alt="Nail art" className="hero-card-img" />
             </div>
-            <div className="carousel-card carousel-back">
-              <img src={getImg(2)} alt="Nail art" className="hero-card-img" key={offset + 2} />
-            </div>
+            {/* Front card - μεγάλη μπροστά */}
+            {exitIdx === null && (
+              <div className={`carousel-card ${animating ? 'c-front-to-right' : 'c-front'}`}>
+                <img src={allImages[slots[0]]} alt="Nail art" className="hero-card-img" />
+                <div className="hero-card-label"><span>Nail Art · Amsha</span></div>
+              </div>
+            )}
           </div>
 
           <a

@@ -166,41 +166,90 @@
   position: absolute;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.14);
+  transition: all 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity, width, height, top, left, right;
 }
 
-/* Front: μεγάλη κάρτα κεντρικά */
-.carousel-front {
+/* Θέσεις ηρεμίας */
+.c-front {
   width: 220px;
   height: 290px;
   top: 50%;
-  left: 50%;
-  transform: translate(-60%, -50%) rotate(-2deg);
+  left: 10%;
+  transform: translateY(-50%) rotate(-2deg);
   z-index: 3;
   opacity: 1;
 }
 
-/* Right: μεσαία κάρτα δεξιά */
-.carousel-right {
-  width: 160px;
-  height: 210px;
-  top: 20%;
-  right: 4%;
+.c-right {
+  width: 155px;
+  height: 205px;
+  top: 12%;
+  right: 8%;
   transform: rotate(4deg);
   z-index: 2;
-  opacity: 0.9;
+  opacity: 0.92;
 }
 
-/* Back: μικρή κάρτα πίσω δεξιά */
-.carousel-back {
-  width: 110px;
-  height: 145px;
+.c-back {
+  width: 105px;
+  height: 138px;
   bottom: 10%;
-  right: 10%;
+  right: 14%;
   transform: rotate(-3deg);
   z-index: 1;
-  opacity: 0.7;
+  opacity: 0.75;
+}
+
+/* Animations: δεξιόστροφη περιστροφή */
+.c-front-to-right {
+  width: 155px;
+  height: 205px;
+  top: 12%;
+  right: 8%;
+  left: auto;
+  transform: rotate(4deg);
+  z-index: 2;
+  opacity: 0.92;
+  transition: all 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.c-right-to-front {
+  width: 220px;
+  height: 290px;
+  top: 50%;
+  left: 10%;
+  right: auto;
+  transform: translateY(-50%) rotate(-2deg);
+  z-index: 3;
+  opacity: 1;
+  transition: all 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.c-back-to-right {
+  width: 155px;
+  height: 205px;
+  top: 12%;
+  right: 8%;
+  bottom: auto;
+  transform: rotate(4deg);
+  z-index: 2;
+  opacity: 0.92;
+  transition: all 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.c-exiting {
+  width: 105px;
+  height: 138px;
+  bottom: 10%;
+  right: 14%;
+  left: auto;
+  top: auto;
+  transform: rotate(-3deg) scale(0.8);
+  z-index: 0;
+  opacity: 0;
+  transition: all 0.75s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hero-card-img {
@@ -208,7 +257,6 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  animation: fadeIn 0.5s ease;
 }
 
 .hero-card-label {
@@ -317,30 +365,35 @@
   .hero-btns { justify-content: center; }
 
   .hero-visual {
-    height: 280px;
+    height: 270px;
     overflow: hidden;
     width: 100%;
     position: relative;
   }
 
-  .carousel-front {
-    width: 160px;
-    height: 210px;
-    transform: translate(-65%, -50%) rotate(-2deg);
+  .c-front, .c-right-to-front {
+    width: 155px;
+    height: 205px;
+    left: 8%;
   }
 
-  .carousel-right {
-    width: 120px;
-    height: 158px;
-    top: 15%;
+  .c-right, .c-front-to-right, .c-back-to-right {
+    width: 115px;
+    height: 152px;
     right: 6%;
+    top: 10%;
   }
 
-  .carousel-back {
-    width: 85px;
-    height: 112px;
-    bottom: 8%;
+  .c-back {
+    width: 80px;
+    height: 105px;
     right: 12%;
+    bottom: 6%;
+  }
+
+  .c-exiting {
+    right: 12%;
+    bottom: 6%;
   }
 
   .hero-badge {
