@@ -90,12 +90,17 @@ export default function Hero({ lang }) {
           <div className={`hero-card hero-card-secondary floating-slow ${swapped ? 'card-front-sm' : 'card-back-sm'}`}>
             <img src={allImages[backIdx]} alt="Amsha salon" className="hero-card-img" />
           </div>
-          <div className="hero-badge">
+          <a
+            href="https://g.page/r/CaVowfI7r4snEAE/review"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hero-badge"
+          >
             <div className="badge-inner">
               <span className="badge-num">5★</span>
               <span className="badge-text">Rhodes</span>
             </div>
-          </div>
+          </a>
         </div>
       </div>
 
