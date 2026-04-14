@@ -1,3 +1,5 @@
+*, *::before, *::after { box-sizing: border-box; }
+
 .hero {
   min-height: 100vh;
   position: relative;
@@ -141,6 +143,7 @@
   transform: translateY(-2px);
 }
 
+/* ── Hero Visual ── */
 .hero-visual {
   position: relative;
   height: 480px;
@@ -149,83 +152,79 @@
   justify-content: center;
 }
 
-.hero-card {
-  position: absolute;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
-}
-
 /* ── Carousel ── */
 .carousel-track-wrapper {
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  border-radius: 20px;
   cursor: grab;
   user-select: none;
+  display: flex;
+  align-items: center;
 }
 
 .carousel-track-wrapper:active { cursor: grabbing; }
 
 .carousel-track {
   display: flex;
-  gap: 12px;
-  height: 100%;
+  align-items: center;
+  gap: 14px;
+  padding: 0 8px;
   will-change: transform;
 }
 
-/* Slide left animation */
 .carousel-track.sliding-left {
-  animation: slideLeft 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: slideLeft 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* Slide right animation */
 .carousel-track.sliding-right {
-  animation: slideRight 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: slideRight 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes slideLeft {
   from { transform: translateX(0); }
-  to   { transform: translateX(calc(-172px - 12px)); }
+  to   { transform: translateX(calc(-162px - 14px)); }
 }
 
 @keyframes slideRight {
   from { transform: translateX(0); }
-  to   { transform: translateX(calc(172px + 12px)); }
+  to   { transform: translateX(calc(162px + 14px)); }
 }
 
 .c-card {
   flex-shrink: 0;
-  width: 160px;
-  height: 210px;
+  width: 148px;
+  height: 195px;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-  align-self: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  opacity: 0.8;
+  transition: opacity 0.3s;
 }
 
 .c-card-cur {
-  width: 172px;
-  height: 228px;
-  box-shadow: 0 16px 48px rgba(0,137,123,0.18);
+  width: 162px;
+  height: 215px;
+  opacity: 1;
+  box-shadow: 0 12px 40px rgba(0,137,123,0.2);
 }
+
+.c-card-prev { opacity: 0.7; }
 
 .c-card-next {
-  animation: cardFadeIn 0.45s ease forwards;
+  opacity: 0.8;
+  animation: cardFadeIn 0.5s ease forwards;
 }
-
-.c-card-prev {
-  opacity: 0.7;
-}
-
-.c-card-peek { opacity: 0.5; }
 
 .c-card-entry {
   opacity: 0;
   pointer-events: none;
+}
+
+@keyframes cardFadeIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 0.8; transform: translateX(0); }
 }
 
 .c-card-img {
@@ -236,36 +235,33 @@
   pointer-events: none;
 }
 
-/* Nav buttons */
 .c-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.9);
   border: none;
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  font-size: 20px;
+  font-size: 18px;
   color: var(--emerald-dark);
   cursor: pointer;
-  z-index: 4;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  line-height: 1;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   transition: background 0.2s, transform 0.2s;
-  padding-bottom: 2px;
 }
 
 .c-btn:hover {
   background: white;
-  transform: translateY(-50%) scale(1.08);
+  transform: translateY(-50%) scale(1.1);
 }
 
-.c-btn-left  { left: 6px; }
-.c-btn-right { right: 6px; }
+.c-btn-left  { left: 2px; }
+.c-btn-right { right: 2px; }
 
 .hero-card-img {
   width: 100%;
@@ -274,10 +270,11 @@
   display: block;
 }
 
+/* Badge */
 .hero-badge {
   position: absolute;
   bottom: 12%;
-  left: 2%;
+  left: -8%;
   z-index: 3;
   background: var(--gold-pale);
   border: 1px solid var(--gold-light);
@@ -315,6 +312,7 @@
   font-family: var(--font-body);
 }
 
+/* Scroll indicator */
 .hero-scroll {
   position: absolute;
   bottom: 32px;
@@ -343,6 +341,16 @@
   font-family: var(--font-body);
 }
 
+@keyframes float {
+  0%, 100% { transform: translate(-50%, -50%) rotate(-2deg) translateY(0px); }
+  50% { transform: translate(-50%, -50%) rotate(-2deg) translateY(-12px); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: rotate(4deg) translateY(0px); }
+  50% { transform: rotate(4deg) translateY(-8px); }
+}
+
 @media (max-width: 900px) {
   .hero-inner {
     grid-template-columns: 1fr;
@@ -365,27 +373,26 @@
   .hero-visual {
     height: 260px;
     width: 100%;
-    position: relative;
   }
 
   .c-card {
-    width: 120px;
-    height: 160px;
+    width: 110px;
+    height: 145px;
   }
 
   .c-card-cur {
-    width: 130px;
-    height: 172px;
+    width: 122px;
+    height: 162px;
   }
 
   @keyframes slideLeft {
     from { transform: translateX(0); }
-    to   { transform: translateX(calc(-120px - 12px)); }
+    to   { transform: translateX(calc(-122px - 14px)); }
   }
 
   @keyframes slideRight {
     from { transform: translateX(0); }
-    to   { transform: translateX(calc(120px + 12px)); }
+    to   { transform: translateX(calc(122px + 14px)); }
   }
 
   .hero-badge {
