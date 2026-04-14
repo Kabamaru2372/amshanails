@@ -162,6 +162,7 @@
   user-select: none;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .carousel-track-wrapper:active { cursor: grabbing; }
@@ -170,7 +171,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 0 8px;
+  padding: 0 40px 0 8px;
   will-change: transform;
 }
 
@@ -274,7 +275,7 @@
 .hero-badge {
   position: absolute;
   bottom: 12%;
-  left: -8%;
+  left: 2%;
   z-index: 3;
   background: var(--gold-pale);
   border: 1px solid var(--gold-light);
