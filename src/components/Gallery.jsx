@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './Gallery.css'
 import img1 from '../assets/images/nails-cherry-art.png'
 import img2 from '../assets/images/nails-burgundy-square.png'
@@ -34,15 +34,36 @@ const images = [
 ]
 
 export default function Gallery({ lang }) {
+  const [lightbox, setLightbox] = useState(null)
+
   useEffect(() => {
     const els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-card')
     const observer = new IntersectionObserver(
-      entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); observer.unobserve(e.target) } }),
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('revealed'); observer.unobserve(e.target) }
+      }),
       { threshold: 0.12 }
     )
     els.forEach(el => observer.observe(el))
     return () => observer.disconnect()
   }, [])
+
+  useEffect(() => {
+    if (lightbox !== null) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    const onKey = e => { if (e.key === 'Escape') setLightbox(null) }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [lightbox])
+
+  const prev = () => setLightbox(i => (i - 1 + images.length) % images.length)
+  const next = () => setLightbox(i => (i + 1) % images.length)
 
   return (
     <section className="gallery" id="gallery">
@@ -59,6 +80,7 @@ export default function Gallery({ lang }) {
               className={`gallery-item reveal ${item.tall ? 'tall' : ''}`}
               key={i}
               style={{ transitionDelay: `${(i % 4) * 0.08}s` }}
+              onClick={() => setLightbox(i)}
             >
               <img src={item.src} alt={`Amsha Nails work ${i + 1}`} loading="lazy" />
               <div className="gallery-overlay">
@@ -75,6 +97,18 @@ export default function Gallery({ lang }) {
           </a>
         </div>
       </div>
+
+      {lightbox !== null && (
+        <div className="lightbox-overlay" onClick={() => setLightbox(null)}>
+          <button className="lightbox-close" onClick={() => setLightbox(null)}>✕</button>
+          <button className="lightbox-prev" onClick={e => { e.stopPropagation(); prev() }}>‹</button>
+          <div className="lightbox-content" onClick={e => e.stopPropagation()}>
+            <img src={images[lightbox].src} alt={`Amsha Nails work ${lightbox + 1}`} className="lightbox-img" />
+            <p className="lightbox-counter">{lightbox + 1} / {images.length}</p>
+          </div>
+          <button className="lightbox-next" onClick={e => { e.stopPropagation(); next() }}>›</button>
+        </div>
+      )}
     </section>
   )
 }
