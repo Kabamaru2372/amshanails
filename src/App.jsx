@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Services from './components/Services'
+import PriceList from './components/PriceList'
 import Gallery from './components/Gallery'
 import Booking from './components/Booking'
 import Info from './components/Info'
@@ -15,6 +16,7 @@ export default function App() {
       <Navbar lang={lang} setLang={setLang} />
       <Hero lang={lang} />
       <Services lang={lang} />
+      <PriceList lang={lang} />
       <Gallery lang={lang} />
       <Booking lang={lang} />
       <Info lang={lang} />

@@ -1,0 +1,217 @@
+.pricelist {
+  background: var(--warm-white);
+  padding: 100px 0;
+}
+
+.pricelist-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* Arch container */
+.pl-arch {
+  background: var(--cream);
+  border-radius: 480px 480px 32px 32px / 120px 120px 32px 32px;
+  border: 1px solid rgba(201, 150, 42, 0.15);
+  padding: 60px 48px 48px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.05);
+}
+
+/* 2-column grid for categories */
+.pl-grid {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 0;
+  margin-bottom: 48px;
+}
+
+/* Vertical divider between columns */
+.pl-grid > :nth-child(odd):not(:last-child)::after {
+  display: none;
+}
+
+/* Wrap categories in pairs with a divider between them */
+.pl-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  position: relative;
+}
+
+.pl-grid::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: rgba(201, 150, 42, 0.2);
+}
+
+/* Category card */
+.pl-card {
+  padding: 32px 36px;
+}
+
+.pl-card:nth-child(1),
+.pl-card:nth-child(2) {
+  border-bottom: 1px solid rgba(201, 150, 42, 0.15);
+  padding-bottom: 36px;
+}
+
+.pl-card:nth-child(3),
+.pl-card:nth-child(4) {
+  padding-top: 36px;
+}
+
+.pl-cat-name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--gold);
+  text-align: center;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  margin-bottom: 14px;
+}
+
+.pl-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(201, 150, 42, 0.35), transparent);
+  margin-bottom: 20px;
+}
+
+.pl-divider--center {
+  max-width: 260px;
+  margin: 0 auto 24px;
+}
+
+/* Items list */
+.pl-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pl-item {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+.pl-item-label {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.pl-item-dots {
+  flex: 1;
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
+  margin: 0 6px;
+  position: relative;
+  top: -3px;
+}
+
+.pl-item-price {
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+/* Rubber base highlight */
+.pl-item--highlight .pl-item-label {
+  color: var(--emerald);
+}
+
+.pl-item--highlight .pl-item-price {
+  color: var(--emerald);
+}
+
+.pl-item--highlight .pl-item-label::before {
+  content: '✦ ';
+  font-size: 9px;
+  color: var(--emerald);
+  vertical-align: middle;
+}
+
+/* Extras section */
+.pl-extras {
+  border-top: 1px solid rgba(201, 150, 42, 0.2);
+  padding-top: 40px;
+}
+
+.pl-extras-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--gold);
+  text-align: center;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  margin-bottom: 14px;
+}
+
+.pl-extras-list {
+  list-style: none;
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pl-item--extra .pl-item-price {
+  color: var(--text-mid);
+  font-style: italic;
+}
+
+/* Scroll reveal (reuses site-wide pattern) */
+.reveal-card {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal-card.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pricelist { padding: 60px 0; }
+
+  .pl-arch {
+    border-radius: 240px 240px 24px 24px / 60px 60px 24px 24px;
+    padding: 48px 24px 36px;
+  }
+
+  .pl-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pl-grid::before { display: none; }
+
+  .pl-card {
+    padding: 24px 8px;
+    border-bottom: 1px solid rgba(201, 150, 42, 0.15) !important;
+  }
+
+  .pl-card:last-child {
+    border-bottom: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .pricelist-inner { padding: 0 16px; }
+
+  .pl-arch {
+    border-radius: 120px 120px 20px 20px / 40px 40px 20px 20px;
+    padding: 40px 20px 28px;
+  }
+}
