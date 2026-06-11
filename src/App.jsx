@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Navbar from './components/Navbar'
+import Sparkles from './components/Sparkles'
 import Hero from './components/Hero'
 import Services from './components/Services'
 import PriceList from './components/PriceList'
@@ -13,6 +14,7 @@ export default function App() {
 
   return (
     <div className="app">
+      <Sparkles />
       <Navbar lang={lang} setLang={setLang} />
       <Hero lang={lang} />
       <Services lang={lang} />

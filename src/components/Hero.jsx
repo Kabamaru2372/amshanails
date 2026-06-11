@@ -118,6 +118,7 @@ export default function Hero({ lang }) {
       <div className="hero-bg">
         <div className="hero-emerald-block" />
         <div className="hero-pattern" />
+        <div className="hero-glow" />
       </div>
 
       <div className="hero-inner">
@@ -126,7 +127,7 @@ export default function Hero({ lang }) {
             <span className="tag-dot" />{t[lang].tag}
           </div>
           <h1 className="hero-h1">
-            <span className="h1-quiet">{t[lang].h1a}</span><br />
+            <span className="h1-quiet">{t[lang].h1a}</span>
             <span className="h1-luxury">{t[lang].h1b}</span>
           </h1>
           <p className="hero-sub">{t[lang].sub}</p>

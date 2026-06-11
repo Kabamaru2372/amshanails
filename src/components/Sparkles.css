@@ -1,0 +1,35 @@
+.sparkles {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.sparkle {
+  position: absolute;
+  color: var(--gold);
+  opacity: 0;
+  line-height: 1;
+  text-shadow: 0 0 6px rgba(232, 184, 75, 0.55);
+  animation: twinkle ease-in-out infinite, sparkleDrift ease-in-out infinite alternate;
+  will-change: opacity, transform;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+  50%      { opacity: 0.65; transform: scale(1) rotate(45deg); }
+}
+
+@keyframes sparkleDrift {
+  from { translate: 0 0; }
+  to   { translate: 0 calc(var(--drift) * -1); }
+}
+
+@media (max-width: 900px) {
+  .sparkle:nth-child(even) { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sparkle { animation: none; opacity: 0.25; }
+}

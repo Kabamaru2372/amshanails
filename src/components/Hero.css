@@ -36,6 +36,44 @@
   background-size: 24px 24px;
 }
 
+/* Soft gold glow behind the headline */
+.hero-glow {
+  position: absolute;
+  left: -10%;
+  top: 20%;
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(232,184,75,0.13) 0%, transparent 65%);
+  filter: blur(10px);
+  animation: glowBreathe 7s ease-in-out infinite;
+}
+
+@keyframes glowBreathe {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50%      { opacity: 1; transform: scale(1.08); }
+}
+
+/* Subtle light sheen sweeping across the emerald block */
+.hero-emerald-block::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255,255,255,0.07) 48%,
+    rgba(232,184,75,0.08) 52%,
+    transparent 70%
+  );
+  background-size: 300% 100%;
+  animation: blockSheen 9s ease-in-out infinite;
+}
+
+@keyframes blockSheen {
+  0%, 100% { background-position: 110% 0; }
+  50%      { background-position: -10% 0; }
+}
+
 .hero-inner {
   max-width: 1200px;
   margin: 0 auto;
@@ -86,9 +124,26 @@
 .h1-luxury {
   font-size: clamp(52px, 7vw, 80px);
   font-weight: 500;
-  color: var(--emerald-dark);
   display: block;
   letter-spacing: -1px;
+  background: linear-gradient(
+    110deg,
+    var(--emerald-dark) 0%,
+    var(--emerald-dark) 38%,
+    var(--gold-light) 50%,
+    var(--emerald-dark) 62%,
+    var(--emerald-dark) 100%
+  );
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--emerald-dark);
+  animation: shimmer 5.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .h1-luxury { animation: none; }
 }
 
 .hero-sub {
@@ -208,7 +263,7 @@
   width: 162px;
   height: 215px;
   opacity: 1;
-  box-shadow: 0 12px 40px rgba(0,137,123,0.2);
+  box-shadow: 0 12px 40px rgba(0,137,123,0.2), 0 0 0 2px var(--gold-light), 0 0 22px rgba(232,184,75,0.35);
 }
 
 .c-card-prev { opacity: 0.7; }

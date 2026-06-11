@@ -43,7 +43,30 @@
   transition: transform 0.4s ease;
 }
 
-.gallery-item:hover img { transform: scale(1.04); }
+.gallery-item:hover img { transform: scale(1.06); }
+
+/* Gold sheen sweep on hover */
+.gallery-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    115deg,
+    transparent 35%,
+    rgba(255,255,255,0.25) 48%,
+    rgba(232,184,75,0.25) 52%,
+    transparent 65%
+  );
+  background-size: 280% 100%;
+  background-position: 110% 0;
+  pointer-events: none;
+  transition: background-position 0.7s ease;
+}
+
+.gallery-item:hover::before {
+  background-position: -10% 0;
+}
 
 /* Lightbox */
 .lightbox-overlay {
@@ -162,12 +185,18 @@
 .gallery-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 105, 92, 0.7);
+  background: linear-gradient(to top, rgba(0,77,64,0.85) 0%, rgba(0,105,92,0.45) 60%, rgba(0,105,92,0.25) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   transition: opacity 0.3s ease;
+}
+
+.gallery-overlay-text::before {
+  content: '✦ ';
+  color: var(--gold-light);
+  font-style: normal;
 }
 
 .gallery-overlay-text {

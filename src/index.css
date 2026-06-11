@@ -90,6 +90,18 @@ a { text-decoration: none; color: inherit; }
 .fade-up-delay-3 { animation-delay: 0.3s; opacity: 0; }
 .fade-up-delay-4 { animation-delay: 0.4s; opacity: 0; }
 
+/* Gold flourish under section titles */
+.section-title::after {
+  content: '✦';
+  display: block;
+  font-size: 13px;
+  color: var(--gold);
+  font-style: normal;
+  margin-top: 14px;
+  letter-spacing: 0;
+  text-shadow: 0 0 8px rgba(232,184,75,0.4);
+}
+
 /* Global scroll reveal utility */
 .reveal {
   opacity: 0;
