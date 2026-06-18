@@ -9,7 +9,7 @@ export default function Footer({ lang }) {
           <span className="logo-dot">·</span>
           <span className="logo-nails">Nails</span>
         </div>
-        <p className="footer-address">Ιερού Λόχου 11, Rhodes, Greece</p>
+        <p className="footer-address">{lang === 'en' ? 'Ierou Lochou 11, Rhodes, Greece' : 'Ιερού Λόχου 11, Ρόδος, Ελλάδα'}</p>
         <div className="footer-links">
           <a href="https://wa.me/306947889058" target="_blank" rel="noopener noreferrer">WhatsApp</a>
           <span>·</span>

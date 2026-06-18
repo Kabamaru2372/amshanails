@@ -202,10 +202,8 @@
 .hero-visual {
   position: relative;
   height: 480px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: 16px;
+  overflow: hidden;
+  border-radius: 20px;
 }
 
 /* ── Carousel ── */
@@ -427,8 +425,9 @@
   .hero-btns { justify-content: center; }
 
   .hero-visual {
-    height: 260px;
+    height: 320px;
     width: 100%;
+    border-radius: 16px;
   }
 
   .c-card {

@@ -1,20 +1,23 @@
 import './Hero.css'
-import BounceCards from './BounceCards'
+import CircularGallery from './CircularGallery'
 import img1 from '../assets/images/nails-cherry-art.png'
 import img2 from '../assets/images/nails-burgundy-floral.png'
 import img3 from '../assets/images/nails-dark-silver.png'
 import img4 from '../assets/images/nails-hearts-nude.png'
 import img5 from '../assets/images/nails-red-classic.png'
 import img6 from '../assets/images/nails-burgundy-square.png'
+import img7 from '../assets/images/nails-cherry-art-2.png'
+import img8 from '../assets/images/nails-process-blue.png'
 
-const bounceImages = [img2, img5, img3, img1, img6]
-
-const bounceTransforms = [
-  'rotate(8deg) translate(-160px)',
-  'rotate(4deg) translate(-80px)',
-  'rotate(-2deg)',
-  'rotate(-9deg) translate(80px)',
-  'rotate(3deg) translate(160px)',
+const galleryItems = [
+  { image: img2, text: 'Floral' },
+  { image: img5, text: 'Classic Red' },
+  { image: img3, text: 'Silver' },
+  { image: img1, text: 'Cherry Art' },
+  { image: img6, text: 'Burgundy' },
+  { image: img7, text: 'Cherry' },
+  { image: img4, text: 'Hearts' },
+  { image: img8, text: 'Ocean Blue' },
 ]
 
 const t = {
@@ -62,13 +65,14 @@ export default function Hero({ lang }) {
         </div>
 
         <div className="hero-visual fade-up fade-up-delay-3">
-          <BounceCards
-            images={bounceImages}
-            containerWidth={460}
-            containerHeight={240}
-            animationDelay={0.3}
-            animationStagger={0.07}
-            transformStyles={bounceTransforms}
+          <CircularGallery
+            items={galleryItems}
+            bend={3}
+            textColor="#C9962A"
+            borderRadius={0.05}
+            font="bold 20px Jost"
+            scrollSpeed={2}
+            scrollEase={0.05}
           />
           <a href="https://g.page/r/CaVowfI7r4snEAE/review" target="_blank" rel="noopener noreferrer" className="hero-badge">
             <div className="badge-inner">

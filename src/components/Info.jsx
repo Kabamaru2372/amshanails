@@ -4,7 +4,7 @@ const t = {
   en: {
     tag: 'Find Us',
     title: 'Visit Us in Rhodes',
-    address: 'Ιερού Λόχου 11, Rhodes',
+    address: 'Ierou Lochou 11, Rhodes',
     hours: 'Tue – Sat: 10:00 – 18:00',
     mobile: 'Mobile',
     landline: 'Landline',
