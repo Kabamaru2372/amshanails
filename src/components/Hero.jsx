@@ -1,16 +1,21 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
 import './Hero.css'
+import BounceCards from './BounceCards'
 import img1 from '../assets/images/nails-cherry-art.png'
 import img2 from '../assets/images/nails-burgundy-floral.png'
 import img3 from '../assets/images/nails-dark-silver.png'
 import img4 from '../assets/images/nails-hearts-nude.png'
 import img5 from '../assets/images/nails-red-classic.png'
 import img6 from '../assets/images/nails-burgundy-square.png'
-import salon1 from '../assets/images/salon-interior.png'
-import salon2 from '../assets/images/salon-emerald-wall.png'
-import salon3 from '../assets/images/salon-spa-pedicure.png'
 
-const allImages = [img1, img2, img3, img4, img5, img6, salon1, salon2, salon3]
+const bounceImages = [img2, img5, img3, img1, img6]
+
+const bounceTransforms = [
+  'rotate(8deg) translate(-160px)',
+  'rotate(4deg) translate(-80px)',
+  'rotate(-2deg)',
+  'rotate(-9deg) translate(80px)',
+  'rotate(3deg) translate(160px)',
+]
 
 const t = {
   en: {
@@ -23,93 +28,6 @@ const t = {
     sub: 'Επαγγελματική τέχνη νυχιών & περιποίηση ομορφιάς στην καρδιά της Ρόδου. Εκεί που η αυτοφροντίδα γίνεται τελετουργία.',
     wa: 'Κράτηση WhatsApp', ig: 'Instagram', scroll: 'Ανακαλύψτε'
   }
-}
-
-function Carousel() {
-  const [current, setCurrent] = useState(0)
-  const [sliding, setSliding] = useState(false)
-  const [direction, setDirection] = useState('left')
-  const hovered = useRef(false)
-  const dragStart = useRef(null)
-  const timerRef = useRef(null)
-
-  const total = allImages.length
-
-  const goTo = useCallback((dir) => {
-    if (sliding) return
-    setDirection(dir)
-    setSliding(true)
-    setTimeout(() => {
-      setCurrent(c => dir === 'left'
-        ? (c + 1) % total
-        : (c - 1 + total) % total
-      )
-      setSliding(false)
-    }, 450)
-  }, [sliding, total])
-
-  const startTimer = useCallback(() => {
-    clearInterval(timerRef.current)
-    timerRef.current = setInterval(() => {
-      if (!hovered.current) goTo('left')
-    }, 3500)
-  }, [goTo])
-
-  useEffect(() => {
-    startTimer()
-    return () => clearInterval(timerRef.current)
-  }, [startTimer])
-
-  const onMouseEnter = () => { hovered.current = true }
-  const onMouseLeave = () => { hovered.current = false }
-
-  const onMouseDown = (e) => { dragStart.current = e.clientX }
-  const onMouseUp = (e) => {
-    if (dragStart.current === null) return
-    const diff = dragStart.current - e.clientX
-    if (Math.abs(diff) > 40) goTo(diff > 0 ? 'left' : 'right')
-    dragStart.current = null
-  }
-
-  const onTouchStart = (e) => { dragStart.current = e.touches[0].clientX }
-  const onTouchEnd = (e) => {
-    if (dragStart.current === null) return
-    const diff = dragStart.current - e.changedTouches[0].clientX
-    if (Math.abs(diff) > 40) goTo(diff > 0 ? 'left' : 'right')
-    dragStart.current = null
-  }
-
-  const getIdx = (offset) => (current + offset + total) % total
-
-  // Visibile: prev, current, next (+ one extra each side for smooth slide)
-  const cards = [
-    { offset: -1, idx: getIdx(-1), role: 'prev' },
-    { offset: 0,  idx: getIdx(0),  role: 'cur' },
-    { offset: 1,  idx: getIdx(1),  role: 'next' },
-    { offset: 2,  idx: getIdx(2),  role: 'entry' },
-  ]
-
-  return (
-    <div
-      className="carousel-track-wrapper"
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      onMouseDown={onMouseDown}
-      onMouseUp={onMouseUp}
-      onTouchStart={onTouchStart}
-      onTouchEnd={onTouchEnd}
-    >
-      <div className={`carousel-track ${sliding ? `sliding-${direction}` : ''}`}>
-        {cards.map(({ idx, role }) => (
-          <div className={`c-card c-card-${role}`} key={`${role}-${idx}`}>
-            <img src={allImages[idx]} alt="Amsha Nails" className="c-card-img" draggable={false} />
-          </div>
-        ))}
-      </div>
-      <button className="c-btn c-btn-left" onClick={() => goTo('right')}>‹</button>
-      <button className="c-btn c-btn-right" onClick={() => goTo('left')}>›</button>
-    </div>
-  )
 }
 
 export default function Hero({ lang }) {
@@ -144,7 +62,14 @@ export default function Hero({ lang }) {
         </div>
 
         <div className="hero-visual fade-up fade-up-delay-3">
-          <Carousel />
+          <BounceCards
+            images={bounceImages}
+            containerWidth={460}
+            containerHeight={240}
+            animationDelay={0.3}
+            animationStagger={0.07}
+            transformStyles={bounceTransforms}
+          />
           <a href="https://g.page/r/CaVowfI7r4snEAE/review" target="_blank" rel="noopener noreferrer" className="hero-badge">
             <div className="badge-inner">
               <span className="badge-num">5★</span>
