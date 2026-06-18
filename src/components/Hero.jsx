@@ -73,6 +73,7 @@ export default function Hero({ lang }) {
             font="bold 20px Jost"
             scrollSpeed={2}
             scrollEase={0.05}
+            autoScrollSpeed={0.012}
           />
           <a href="https://g.page/r/CaVowfI7r4snEAE/review" target="_blank" rel="noopener noreferrer" className="hero-badge">
             <div className="badge-inner">

@@ -346,10 +346,13 @@ class Media {
 }
 
 class App {
-  constructor(container, { items, bend, textColor = '#ffffff', borderRadius = 0, font = 'bold 30px Figtree', scrollSpeed = 2, scrollEase = 0.05 } = {}) {
+  constructor(container, { items, bend, textColor = '#ffffff', borderRadius = 0, font = 'bold 30px Figtree', scrollSpeed = 2, scrollEase = 0.05, autoScrollSpeed = 0 } = {}) {
     document.documentElement.classList.remove('no-js');
     this.container = container;
     this.scrollSpeed = scrollSpeed;
+    this.autoScrollSpeed = autoScrollSpeed;
+    this.isInteracting = false;
+    this.resumeTimer = null;
     this.scroll = { ease: scrollEase, current: 0, target: 0, last: 0 };
     this.onCheckDebounce = debounce(this.onCheck, 200);
     this.createRenderer();
@@ -400,10 +403,18 @@ class App {
       });
     });
   }
+  pauseAutoScroll() {
+    this.isInteracting = true;
+    clearTimeout(this.resumeTimer);
+  }
+  resumeAutoScroll(delay = 2000) {
+    this.resumeTimer = setTimeout(() => { this.isInteracting = false; }, delay);
+  }
   onTouchDown(e) {
     this.isDown = true;
     this.scroll.position = this.scroll.current;
     this.start = e.touches ? e.touches[0].clientX : e.clientX;
+    this.pauseAutoScroll();
   }
   onTouchMove(e) {
     if (!this.isDown) return;
@@ -414,10 +425,13 @@ class App {
   onTouchUp() {
     this.isDown = false;
     this.onCheck();
+    this.resumeAutoScroll(2000);
   }
   onWheel(e) {
     const delta = e.deltaY || e.wheelDelta || e.detail;
     this.scroll.target += (delta > 0 ? this.scrollSpeed : -this.scrollSpeed) * 0.2;
+    this.pauseAutoScroll();
+    this.resumeAutoScroll(1500);
     this.onCheckDebounce();
   }
   onKeyDown(e) {
@@ -461,6 +475,9 @@ class App {
     }
   }
   update() {
+    if (this.autoScrollSpeed && !this.isInteracting) {
+      this.scroll.target += this.autoScrollSpeed;
+    }
     this.scroll.current = lerp(this.scroll.current, this.scroll.target, this.scroll.ease);
     const direction = this.scroll.current > this.scroll.last ? 'right' : 'left';
     if (this.medias) {
@@ -490,6 +507,7 @@ class App {
     this.container?.addEventListener('keydown', this.boundOnKeyDown);
   }
   destroy() {
+    clearTimeout(this.resumeTimer);
     window.cancelAnimationFrame(this.raf);
     window.removeEventListener('resize', this.boundOnResize);
     window.removeEventListener('mousewheel', this.boundOnWheel);
@@ -517,7 +535,8 @@ export default function CircularGallery({
   font = 'bold 30px Figtree',
   fontUrl,
   scrollSpeed = 2,
-  scrollEase = 0.05
+  scrollEase = 0.05,
+  autoScrollSpeed = 0
 }) {
   const containerRef = useRef(null);
   useEffect(() => {
@@ -533,14 +552,15 @@ export default function CircularGallery({
         borderRadius,
         font: resolvedFont,
         scrollSpeed,
-        scrollEase
+        scrollEase,
+        autoScrollSpeed
       });
     });
     return () => {
       isMounted = false;
       if (app) app.destroy();
     };
-  }, [items, bend, textColor, borderRadius, font, fontUrl, scrollSpeed, scrollEase]);
+  }, [items, bend, textColor, borderRadius, font, fontUrl, scrollSpeed, scrollEase, autoScrollSpeed]);
   return (
     <div
       className="circular-gallery"
