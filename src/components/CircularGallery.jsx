@@ -25,7 +25,10 @@ function autoBind(instance) {
 }
 
 const DEFAULT_FONT = 'bold 30px Figtree';
-const DEFAULT_FONT_URL = 'https://fonts.googleapis.com/css2?family=Figtree:wght@400;700&display=swap';
+// Self-hosted (see public/fonts/figtree.css) instead of fetched live from Google Fonts on every
+// visit - loadFontFromStylesheet() below already treats any .css URL the same way, so this is a
+// same-shape swap, not a behavior change.
+const DEFAULT_FONT_URL = '/fonts/figtree.css';
 
 function deriveFontFamilyFromUrl(url) {
   const fileName = (url.split('/').pop() || 'custom-font').split('?')[0];
